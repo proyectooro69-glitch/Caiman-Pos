@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { FolderOpen } from "lucide-react";
 
 const templates = [
   { id: "C-01", name: "Corporativo", color: "from-blue-500 to-cyan-500" },
@@ -15,7 +16,7 @@ export function Templates() {
           <p className="text-slate-400">Elige el estilo que mejor se adapte a tu marca.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
           {templates.map((t, i) => (
             <motion.div
               key={t.id}
@@ -48,6 +49,25 @@ export function Templates() {
             </motion.div>
           ))}
         </div>
+
+        {/* CTA Button */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex justify-center"
+        >
+          <a
+            href="https://drive.google.com/drive/folders/1zfEfW0y7XHGJvZixMaBWtWvakTd51g3b?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white rounded-full font-semibold text-lg shadow-lg hover:shadow-cyan-500/30 hover:scale-105 transition-all duration-300"
+            data-testid="button-view-templates"
+          >
+            <FolderOpen size={24} />
+            Ver todas nuestras plantillas
+          </a>
+        </motion.div>
       </div>
     </section>
   );
