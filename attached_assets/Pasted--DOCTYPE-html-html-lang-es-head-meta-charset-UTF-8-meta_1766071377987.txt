@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tarjetas Digitales Interactivas | CAIMÁN</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0b0b0f, #0f172a);
+      color: #fff;
+    }
+
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .mockup {
+      background: #111827;
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .mockup div {
+      background: #1f2933;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #111827;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    /* FORM */
+    form {
+      background: #020617;
+      padding: 40px;
+      border-radius: 25px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: none;
+      background: #1e293b;
+      color: #fff;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #22d3ee, #6366f1);
+      color: #000;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #94a3b8;
+    }
+
+    @media(max-width: 768px){
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>Tu tarjeta de presentación ya no es papel.</h1>
+    <h2>Es digital, interactiva y medible.</h2>
+    <p>Crea una tarjeta de presentación digital interactiva con enlaces, formularios y analítica de clics.</p>
+    <a href="#formulario" class="btn">Crear mi tarjeta digital</a>
+  </div>
+
+  <div class="mockup">
+    <div>👤 Claricel Rodríguez</div>
+    <div>📱 WhatsApp</div>
+    <div>📷 Instagram</div>
+    <div>📊 +32 clics hoy</div>
+  </div>
+</section>
+
+<!-- USOS -->
+<section>
+  <h2>¿Para qué se utilizan?</h2>
+  <div class="grid">
+    <div class="card">👔 Uso profesional</div>
+    <div class="card">🤝 Networking</div>
+    <div class="card">💼 Ventas</div>
+    <div class="card">🎨 Portafolios</div>
+    <div class="card">🛍️ Catálogos</div>
+    <div class="card">⚡ Contacto rápido</div>
+  </div>
+</section>
+
+<!-- ANALÍTICA -->
+<section>
+  <h2>Lo que la hace diferente</h2>
+  <p>Analiza los clics de cada enlace y optimiza tu estrategia digital.</p>
+  <div class="grid">
+    <div class="card">📊 WhatsApp</div>
+    <div class="card">📈 Redes Sociales</div>
+    <div class="card">📎 Servicios</div>
+  </div>
+</section>
+
+<!-- ENLACES -->
+<section>
+  <h2>Enlaces que puede contener</h2>
+  <p>Redes, WhatsApp, email, PDFs, formularios, catálogos y más.</p>
+</section>
+
+<!-- PLANTILLAS -->
+<section>
+  <h2>Plantillas disponibles</h2>
+  <div class="grid">
+    <div class="card">Plantilla C-01</div>
+    <div class="card">Plantilla P-05</div>
+    <div class="card">Plantilla B-09</div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section>
+  <h2>¿Cómo funciona?</h2>
+  <p>1. Eliges plantilla · 2. Envío de datos · 3. Revisión · 4. Pago · 5. Entrega final</p>
+</section>
+
+<!-- FORMULARIO -->
+<section id="formulario">
+  <h2>Crear mi tarjeta digital</h2>
+
+  <form onsubmit="enviarWhatsApp(event)">
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="tel" id="telefono" placeholder="Número de móvil" required>
+    <input type="email" id="email" placeholder="Correo electrónico" required>
+    <input type="text" id="plantilla" placeholder="Código de plantilla">
+    <textarea id="comentarios" placeholder="Comentarios adicionales"></textarea>
+    <button type="submit">Enviar información</button>
+  </form>
+</section>
+
+<footer>
+  © CAIMÁN · Tarjetas Digitales Interactivas
+</footer>
+
+<script>
+function enviarWhatsApp(e){
+  e.preventDefault();
+
+  let nombre = document.getElementById("nombre").value;
+  let telefono = document.getElementById("telefono").value;
+  let email = document.getElementById("email").value;
+  let plantilla = document.getElementById("plantilla").value;
+  let comentarios = document.getElementById("comentarios").value;
+
+  let mensaje = `Hola, soy ${nombre}.
+Teléfono: ${telefono}
+Email: ${email}
+Plantilla: ${plantilla}
+Comentarios: ${comentarios}`;
+
+  let url = "https://wa.me/5358875135?text=" + encodeURIComponent(mensaje);
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
