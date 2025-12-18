@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import { FolderOpen } from "lucide-react";
 
 const templates = [
-  { id: "C-01", name: "Corporativo", color: "from-blue-500 to-cyan-500" },
-  { id: "P-05", name: "Personal", color: "from-purple-500 to-pink-500" },
-  { id: "B-09", name: "Business", color: "from-amber-500 to-orange-500" },
+  { id: "C-01", name: "Corporativo", image: "/template-corporativo.png" },
+  { id: "P-05", name: "Personal", image: "/template-personal.png" },
+  { id: "B-09", name: "Business", image: "/template-business.png" },
 ];
 
 export function Templates() {
@@ -26,23 +26,17 @@ export function Templates() {
               transition={{ delay: i * 0.2 }}
               className="group relative h-96 rounded-3xl overflow-hidden bg-gray-900 border border-gray-800 shadow-2xl"
             >
-              {/* Abstract Preview */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${t.color} opacity-20 group-hover:opacity-30 transition-opacity`}></div>
+              {/* Template Image */}
+              <img 
+                src={t.image} 
+                alt={t.name}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
               
-              <div className="absolute inset-0 flex items-center justify-center">
-                 <div className="w-48 h-72 bg-gray-950 rounded-2xl border border-gray-800 shadow-lg transform group-hover:scale-105 transition-transform duration-500 flex flex-col items-center pt-8 gap-3">
-                    <div className="w-16 h-16 rounded-full bg-gray-800"></div>
-                    <div className="w-32 h-4 bg-gray-800 rounded"></div>
-                    <div className="w-24 h-3 bg-gray-800/50 rounded"></div>
-                    <div className="mt-4 w-full px-4 space-y-2">
-                       <div className={`h-10 w-full rounded-lg bg-gradient-to-r ${t.color} opacity-80`}></div>
-                       <div className="h-10 w-full rounded-lg bg-gray-800"></div>
-                       <div className="h-10 w-full rounded-lg bg-gray-800"></div>
-                    </div>
-                 </div>
-              </div>
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="text-xl font-bold text-white">{t.name}</h3>
                 <p className="text-slate-400 text-sm">Plantilla {t.id}</p>
               </div>
