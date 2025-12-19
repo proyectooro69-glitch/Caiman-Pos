@@ -25,5 +25,47 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        if (!form) return;
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const nombre = document.querySelector('input[placeholder="Nombre completo"]').value;
+          const telefono = document.querySelector('input[placeholder="Número de móvil"]').value;
+          const email = document.querySelector('input[placeholder="Correo electrónico"]').value;
+          const plantilla = document.querySelector('input[placeholder*="plantilla"]')?.value || "";
+          const comentarios = document.querySelector('textarea')?.value || "";
+
+          fetch("https://script.google.com/macros/s/AKfycbwU29nq1r0DfZu_RQwhyb8IXNzzhYJkyLj8JQZ_SnDa1J7WjOrihHcC8p5sRTMxppm6xA/exec", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              nombre,
+              telefono,
+              email,
+              plantilla,
+              comentarios
+            })
+          })
+          .then(response => response.json())
+          .then(() => {
+            window.open(
+              "https://wa.me/5358875135?text=Hola, ya envié mis datos para crear mi tarjeta digital",
+              "_blank"
+            );
+            form.reset();
+          })
+          .catch(() => {
+            alert("Hubo un error al enviar los datos. Intenta nuevamente.");
+          });
+        });
+      });
+    </script>
   </body>
 </html>
