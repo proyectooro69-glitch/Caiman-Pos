@@ -58,7 +58,7 @@ export function Hero() {
             </a>
             
             <a
-              href="https://url-shortener--proyectooro69.replit.app/n2anr0"
+              href="https://url-shortener--proyectooro69.replit.app/p7ohnc"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-semibold text-lg shadow-lg hover:shadow-green-500/30 transition-all hover:scale-105"
