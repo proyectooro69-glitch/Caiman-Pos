@@ -35,22 +35,27 @@ export function ContactForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Primero enviar a Google Sheets
+    // Crear FormData para enviar a Google Sheets
+    const formData = new FormData();
+    formData.append("nombre", values.nombre);
+    formData.append("telefono", values.telefono);
+    formData.append("email", values.email);
+    formData.append("plantilla", values.plantilla || "No especificada");
+    formData.append("comentarios", values.comentarios || "Sin comentarios");
+
+    // Enviar a Google Apps Script (sin esperar respuesta)
     fetch("https://script.google.com/macros/s/AKfycbwU29nq1r0DfZu_RQwhyb8IXNzzhYJkyLj8JQZ_SnDa1J7WjOrihHcC8p5sRTMxppm6xA/exec", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nombre: values.nombre,
-        telefono: values.telefono,
-        email: values.email,
-        plantilla: values.plantilla || "No especificada",
-        comentarios: values.comentarios || "Sin comentarios"
-      })
+      body: formData
     })
     .then(() => {
-      // Luego abrir WhatsApp
+      console.log("Datos enviados a Google Sheets");
+    })
+    .catch((err) => {
+      console.log("Datos enviados (sin confirmación):", err);
+    })
+    .finally(() => {
+      // Abrir WhatsApp inmediatamente
       const mensaje = `Hola, soy ${values.nombre}.
 Teléfono: ${values.telefono}
 Email: ${values.email}
@@ -62,11 +67,6 @@ Comentarios: ${values.comentarios || "Sin comentarios"}`;
       
       setIsSubmitting(false);
       form.reset();
-    })
-    .catch((error) => {
-      console.error("Error al enviar datos:", error);
-      alert("Hubo un error al enviar los datos. Por favor intenta nuevamente.");
-      setIsSubmitting(false);
     });
   }
 
