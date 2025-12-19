@@ -35,8 +35,22 @@ export function ContactForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Simulate delay for effect
-    setTimeout(() => {
+    // Primero enviar a Google Sheets
+    fetch("https://script.google.com/macros/s/AKfycbwU29nq1r0DfZu_RQwhyb8IXNzzhYJkyLj8JQZ_SnDa1J7WjOrihHcC8p5sRTMxppm6xA/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nombre: values.nombre,
+        telefono: values.telefono,
+        email: values.email,
+        plantilla: values.plantilla || "No especificada",
+        comentarios: values.comentarios || "Sin comentarios"
+      })
+    })
+    .then(() => {
+      // Luego abrir WhatsApp
       const mensaje = `Hola, soy ${values.nombre}.
 Teléfono: ${values.telefono}
 Email: ${values.email}
@@ -45,9 +59,15 @@ Comentarios: ${values.comentarios || "Sin comentarios"}`;
 
       const url = "https://wa.me/5358875135?text=" + encodeURIComponent(mensaje);
       window.open(url, "_blank");
+      
       setIsSubmitting(false);
       form.reset();
-    }, 1000);
+    })
+    .catch((error) => {
+      console.error("Error al enviar datos:", error);
+      alert("Hubo un error al enviar los datos. Por favor intenta nuevamente.");
+      setIsSubmitting(false);
+    });
   }
 
   return (
