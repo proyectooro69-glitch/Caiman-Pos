@@ -35,18 +35,16 @@ export function ContactForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Crear FormData para enviar a Google Sheets
-    const formData = new FormData();
-    formData.append("nombre", values.nombre);
-    formData.append("telefono", values.telefono);
-    formData.append("email", values.email);
-    formData.append("plantilla", values.plantilla || "No especificada");
-    formData.append("comentarios", values.comentarios || "Sin comentarios");
-
-    // Enviar a Google Apps Script (sin esperar respuesta)
+    // Enviar datos como JSON a Google Apps Script
     fetch("https://script.google.com/macros/s/AKfycbwCkbDSkOFUo1AhS0JlH9sicICb94NL37yHaiBnH7LBMBAoYkbh71uPl5rOVZtacjlPpA/exec", {
       method: "POST",
-      body: formData
+      body: JSON.stringify({
+        nombre: values.nombre,
+        telefono: values.telefono,
+        email: values.email,
+        plantilla: values.plantilla || "No especificada",
+        comentarios: values.comentarios || "Sin comentarios"
+      })
     })
     .then(() => {
       console.log("Datos enviados a Google Sheets");
