@@ -4,8 +4,8 @@ import { MessageCircle } from "lucide-react";
 export function Hero() {
   return (
     <section className="relative pt-8 pb-20 px-6 max-w-7xl mx-auto">
-      {/* Logo - Top Left */}
-      <div className="flex justify-start mb-12">
+      {/* Logo & Branding - Top Left */}
+      <div className="flex items-center justify-start gap-6 mb-16">
         <motion.img
           src="/caiman-logo.png"
           alt="CAIMÁN Cards"
@@ -14,6 +14,19 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
         />
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-col justify-center"
+        >
+          <div className="text-sm md:text-base text-slate-400 font-medium tracking-wide">
+            Soluciones Digitales
+          </div>
+          <div className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500">
+            CAIMÁN
+          </div>
+        </motion.div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 items-start">
