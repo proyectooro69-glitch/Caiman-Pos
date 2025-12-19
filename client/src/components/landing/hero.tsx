@@ -58,7 +58,7 @@ export function Hero() {
             </a>
             
             <a
-              href="https://url-shortener--proyectooro69.replit.app/p7ohnc"
+              href="https://wa.me/5358875135?text=Hola%20CAIMÁN%2C%20me%20gustaría%20saber%20más%20sobre%20mis%20tarjetas%20digitales"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-semibold text-lg shadow-lg hover:shadow-green-500/30 transition-all hover:scale-105"
