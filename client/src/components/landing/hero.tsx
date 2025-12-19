@@ -3,13 +3,13 @@ import { MessageCircle } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative pt-20 pb-20 px-6 max-w-7xl mx-auto">
-      {/* Logo */}
-      <div className="flex justify-center mb-12">
+    <section className="relative pt-8 pb-20 px-6 max-w-7xl mx-auto">
+      {/* Logo - Top Left */}
+      <div className="flex justify-start mb-12">
         <motion.img
           src="/caiman-logo.png"
           alt="CAIMÁN Cards"
-          className="h-24 md:h-32 object-contain"
+          className="h-32 md:h-40 object-contain"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
