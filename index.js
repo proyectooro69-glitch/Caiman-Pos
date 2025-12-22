@@ -5,17 +5,15 @@ import { fileURLToPath } from 'node:url';
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// 1. Servir los archivos estáticos desde la carpeta 'dist'
-// Según tu captura, aquí es donde Vite guardó tu web
-app.use(express.static(path.join(__dirname, 'dist')));
+// 1. Apuntamos a la carpeta donde están tus estilos y scripts
+app.use(express.static(path.join(__dirname, 'dist/public')));
 
-// 2. Ruta para manejar cualquier petición y devolver el index.html
+// 2. Ruta principal: ahora buscamos el index.html dentro de dist/public
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist/public/index.html'));
 });
 
-// 3. Escuchar en el puerto 8080 (el que configuramos en Networking)
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor funcionando en el puerto ${PORT}`);
+  console.log(`Servidor activo en puerto ${PORT}`);
 });
