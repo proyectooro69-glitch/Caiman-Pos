@@ -5,24 +5,17 @@ import { fileURLToPath } from 'node:url';
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Esta es la clave: le decimos al servidor que busque en todas las carpetas posibles
-const folders = ['dist', 'client', 'public', '.'];
+// 1. Servir los archivos estáticos desde la carpeta 'dist'
+// Según tu captura, aquí es donde Vite guardó tu web
+app.use(express.static(path.join(__dirname, 'dist')));
 
-folders.forEach(folder => {
-    app.use(express.static(path.join(__dirname, folder)));
-});
-
-// Si alguien entra a la raíz, le enviamos el index.html
+// 2. Ruta para manejar cualquier petición y devolver el index.html
 app.get('*', (req, res) => {
-    // Intentamos enviarlo desde 'dist' o desde la raíz
-    const indexPath = fs.existsSync(path.join(__dirname, 'dist', 'index.html')) 
-        ? path.join(__dirname, 'dist', 'index.html')
-        : path.join(__dirname, 'index.html');
-    
-    res.sendFile(indexPath);
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
+// 3. Escuchar en el puerto 8080 (el que configuramos en Networking)
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Servidor backend corriendo en puerto ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor funcionando en el puerto ${PORT}`);
 });
