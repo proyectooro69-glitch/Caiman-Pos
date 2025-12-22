@@ -1,34 +1,28 @@
-import http from 'node:http';
-import fs from 'node:fs';
+import express from 'express';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const server = http.createServer((req, res) => {
-  // Intentamos buscar el archivo index.html en las rutas más comunes de Replit
-  const pathsToTry = [
-    path.join(process.cwd(), 'index.html'),
-    path.join(process.cwd(), 'client', 'index.html'),
-    path.join(process.cwd(), 'public', 'index.html')
-  ];
+const app = express();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-  let found = false;
+// Esta es la clave: le decimos al servidor que busque en todas las carpetas posibles
+const folders = ['dist', 'client', 'public', '.'];
 
-  for (const filePath of pathsToTry) {
-    if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath);
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(content);
-      found = true;
-      break;
-    }
-  }
-
-  if (!found) {
-    res.writeHead(404);
-    res.end('Error: No se encontro el archivo index.html de tu web.');
-  }
+folders.forEach(folder => {
+    app.use(express.static(path.join(__dirname, folder)));
 });
 
-// El puerto debe ser 8080 obligatoriamente
-server.listen(8080, () => {
-  console.log('Servidor listo en el puerto 8080');
+// Si alguien entra a la raíz, le enviamos el index.html
+app.get('*', (req, res) => {
+    // Intentamos enviarlo desde 'dist' o desde la raíz
+    const indexPath = fs.existsSync(path.join(__dirname, 'dist', 'index.html')) 
+        ? path.join(__dirname, 'dist', 'index.html')
+        : path.join(__dirname, 'index.html');
+    
+    res.sendFile(indexPath);
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Servidor backend corriendo en puerto ${PORT}`);
 });
