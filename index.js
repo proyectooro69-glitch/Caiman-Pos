@@ -1,10 +1,10 @@
 // Entrypoint para Replit - ejecuta el servidor compilado
-// El servidor real está en dist/index.cjs después de compilar
+import { spawn } from 'child_process';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
-const { spawn } = require('child_process');
-const path = require('path');
-const fs = require('fs');
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distServerPath = path.join(__dirname, 'dist/index.cjs');
 
 if (fs.existsSync(distServerPath)) {
