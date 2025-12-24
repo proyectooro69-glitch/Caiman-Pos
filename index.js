@@ -1,19 +1,24 @@
-import express from 'express';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+// Entrypoint para Replit - ejecuta el servidor compilado
+// El servidor real está en dist/index.cjs después de compilar
 
-const app = express();
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const { spawn } = require('child_process');
+const path = require('path');
+const fs = require('fs');
 
-// 1. Apuntamos a la carpeta donde están tus estilos y scripts
-app.use(express.static(path.join(__dirname, 'dist/public')));
+const distServerPath = path.join(__dirname, 'dist/index.cjs');
 
-// 2. Ruta principal: ahora buscamos el index.html dentro de dist/public
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/public/index.html'));
-});
-
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor activo en puerto ${PORT}`);
-});
+if (fs.existsSync(distServerPath)) {
+  console.log('✓ Iniciando servidor compilado...');
+  const server = spawn('node', [distServerPath], {
+    env: { ...process.env, NODE_ENV: 'production' },
+    stdio: 'inherit'
+  });
+  
+  server.on('error', (err) => {
+    console.error('❌ Error iniciando servidor:', err);
+    process.exit(1);
+  });
+} else {
+  console.error('❌ dist/index.cjs no existe. Ejecuta: npm run build');
+  process.exit(1);
+}
