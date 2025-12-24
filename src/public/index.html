@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    
+    <title>Tarjetas Digitales Interactivas | CAIMÁN</title>
+    <meta name="description" content="Crea una tarjeta de presentación digital interactiva con enlaces, formularios y analítica de clics. Tu tarjeta de presentación ya no es papel." />
+    
+    <meta property="og:title" content="Tarjetas Digitales Interactivas | CAIMÁN" />
+    <meta property="og:description" content="Crea una tarjeta de presentación digital interactiva con enlaces, formularios y analítica de clics." />
+    <meta property="og:type" content="website" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tarjetas Digitales Interactivas | CAIMÁN" />
+    <meta name="twitter:description" content="Crea una tarjeta de presentación digital interactiva con enlaces, formularios y analítica de clics." />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-Qd_iSzPS.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-LhzWXuir.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        if (!form) return;
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const nombre = document.querySelector('input[placeholder="Nombre completo"]').value;
+          const telefono = document.querySelector('input[placeholder="Número de móvil"]').value;
+          const email = document.querySelector('input[placeholder="Correo electrónico"]').value;
+          const plantilla = document.querySelector('input[placeholder*="plantilla"]')?.value || "No especificada";
+          const comentarios = document.querySelector('textarea')?.value || "Sin comentarios";
+
+          // Enviar datos como JSON a Google Apps Script
+          fetch("https://script.google.com/macros/s/AKfycbwCkbDSkOFUo1AhS0JlH9sicICb94NL37yHaiBnH7LBMBAoYkbh71uPl5rOVZtacjlPpA/exec", {
+            method: "POST",
+            body: JSON.stringify({
+              nombre,
+              telefono,
+              email,
+              plantilla,
+              comentarios
+            })
+          })
+          .then(() => {
+            console.log("Datos enviados a Google Sheets");
+          })
+          .catch((err) => {
+            console.log("Datos enviados (sin confirmación):", err);
+          })
+          .finally(() => {
+            // Abrir WhatsApp inmediatamente (sin esperar respuesta)
+            const mensaje = `Hola, soy ${nombre}.
+Teléfono: ${telefono}
+Email: ${email}
+Plantilla: ${plantilla}
+Comentarios: ${comentarios}`;
+
+            const url = "https://wa.me/5358875135?text=" + encodeURIComponent(mensaje);
+            window.open(url, "_blank");
+            form.reset();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
