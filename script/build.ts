@@ -61,6 +61,25 @@ async function buildAll() {
     external: externals,
     logLevel: "info",
   });
+
+  // Copy public files to alternate locations for different deployment scenarios
+  const publicSourcePath = path.resolve("dist/public");
+  if (existsSync(publicSourcePath)) {
+    const alternatePaths = [
+      path.resolve("src/public"),
+      path.resolve("dist/src/public"),
+    ];
+    
+    for (const altPath of alternatePaths) {
+      try {
+        await rm(altPath, { recursive: true, force: true });
+        await cp(publicSourcePath, altPath, { recursive: true });
+        console.log(`✓ Copied public files to ${altPath}`);
+      } catch (err) {
+        console.log(`Note: Could not copy to ${altPath}, continuing...`);
+      }
+    }
+  }
 }
 
 buildAll().catch((err) => {
